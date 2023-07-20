@@ -1,7 +1,7 @@
 """
 URL mappings for the reccipe app.
 """
-from django.urls import(
+from django.urls import (
     path,
     include,
 )
