@@ -2,8 +2,8 @@
 Serializeers for the user API view.
 """
 from django.contrib.auth import (
-    authenticate,
     get_user_model,
+    authenticate,
 )
 from django.utils.translation import gettext as _
 
