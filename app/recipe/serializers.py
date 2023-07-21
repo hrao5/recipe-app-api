@@ -22,7 +22,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ['id', 'title', 'time_minutes', 'price', 'link']
+        fields = ['id', 'title', 'time_minutes', 'price', 'link', 'tags']
         read_only_fields = ['id']
 
     def _get_or_create_tags(self, tags, recipe):
@@ -39,7 +39,6 @@ class RecipeSerializer(serializers.ModelSerializer):
         """Create a recipe."""
         tags = validated_data.pop('tags', [])
         recipe = Recipe.objects.create(**validated_data)
-        auth_user = self.context['request'].user
         self._get_or_create_tags(tags, recipe)
 
         return recipe
@@ -52,7 +51,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             self._get_or_create_tags(tags, instance)
 
         for attr, value in validated_data.items():
-            setattr(instanve, attr, value)
+            setattr(instance, attr, value)
 
         instance.save()
         return instance
