@@ -13,7 +13,7 @@ from core.models import Tag
 from recipe.serializers import TagSerializer
 
 
-TAGS_URL =reverse('recipe:tag-list')
+TAGS_URL = reverse('recipe:tag-list')
 
 
 def detail_url(tag_id):
