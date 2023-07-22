@@ -389,7 +389,10 @@ class ImageUploadTests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user('user@example.com', 'password123',)
+        self.user = get_user_model().objects.create_user(
+            'user@example.com',
+            'password123',
+        )
 
         self.client.force_authenticate(self.user)
         self.recipe = create_recipe(user=self.user)
@@ -402,7 +405,7 @@ class ImageUploadTests(TestCase):
         url = image_upload_url(self.recipe.id)
         with tempfile.NamedTemporaryFile(suffix='.jpg') as image_file:
             img = Image.new('RGB', (10, 10))
-            img.save(image.file, format='JPEG')
+            img.save(image_file, format='JPEG')
             image_file.seek(0)
             payload = {'image': image_file}
             res = self.client.post(url, payload, format='multipart')
